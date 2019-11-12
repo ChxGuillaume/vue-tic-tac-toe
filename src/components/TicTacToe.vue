@@ -1,12 +1,12 @@
 <template>
 
   <div id="tic-tac-toe">
-    <player :player-data="players[0]"></player>
+    <Player :playerData="players[0]"></Player>
     <player :player-data="players[1]"></player>
     <table>
       <tr v-for="(row, ri) in table" :key="ri">
         <td v-for="(column, ci) in row" :key="ci" @click="updateSquare(ri, ci)">
-          <square :who-play="game.whoPlay" :value="table[ri][ci]"></square>
+          <Square :who-play="game.whoPlay" :value="column"></Square>
         </td>
       </tr>
     </table>
@@ -45,19 +45,25 @@ const checkDiagonals = (table) => {
 };
 
 const checkTable = (table) => {
-  let winner = -1;
-
   for (let i = 0; i < table.length; i += 1) {
     const rowResult = checkRows(table, i);
-    if (rowResult !== -1) winner = rowResult;
+
+    if (rowResult !== -1) {
+      return rowResult;
+    }
+
     const colCheck = checkCols(table, i);
-    if (colCheck !== -1) winner = colCheck;
+    if (colCheck !== -1) {
+      return colCheck;
+    }
   }
 
   const diagonalCheck = checkDiagonals(table);
-  if (diagonalCheck !== -1) winner = diagonalCheck;
+  if (diagonalCheck !== -1) {
+    return diagonalCheck;
+  }
 
-  return winner;
+  return -1;
 };
 
 const tableIsFull = (table) => {
