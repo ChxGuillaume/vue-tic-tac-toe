@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <tic-tac-toe></tic-tac-toe>
+    <TicTacToe></TicTacToe>
   </div>
 </template>
 
